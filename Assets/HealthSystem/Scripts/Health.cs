@@ -1,10 +1,14 @@
+using System;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] public float Max { get; private set; }
+    [SerializeField] private float _max;
 
+    public float Max => _max;
     public float Current { get; private set; }
+
+    public event Action Changed;
 
     private void Awake()
     {
@@ -21,6 +25,8 @@ public class Health : MonoBehaviour
             Current = 0;
         else
             Current -= amount;
+
+        Changed?.Invoke();
     }
 
     public void TakeHeal(float amount)
@@ -32,5 +38,7 @@ public class Health : MonoBehaviour
             Current = Max;
         else
             Current += amount;
+
+        Changed?.Invoke();
     }
 }

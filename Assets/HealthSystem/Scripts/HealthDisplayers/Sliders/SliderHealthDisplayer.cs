@@ -16,17 +16,13 @@ public class SliderHealthDisplayer : HealthDisplayer
     {
         Slider.maxValue = Health.Max;
         Slider.minValue = 0;
-        
         base.Start();
     }
 
     protected override IEnumerator UpdateHealthDisplay()
     {
-        while (enabled)
-        {
-            Slider.value = Health.Max;
+        Slider.value = Health.Current;
 
-            yield return null;
-        }
+        yield return null;
     }
 }

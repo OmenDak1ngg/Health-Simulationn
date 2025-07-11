@@ -9,20 +9,20 @@ public class SmoothSliderHealthDisplayer : SliderHealthDisplayer
 
     protected override void Start()
     {
+        base.Start();
+
         _displayedHealth = Health.Current;
         Slider.value = _displayedHealth;
-
-        base.Start();
     }
 
     protected override IEnumerator UpdateHealthDisplay()
     {
-        while (enabled)
+        while (_displayedHealth != Health.Current)
         {
-            _displayedHealth = Mathf.MoveTowards(_displayedHealth, Health.Current, _healthDelta * Time.deltaTime);
+            _displayedHealth = Mathf.MoveTowards(_displayedHealth, Health.Current, _healthDelta *Time.deltaTime);
             Slider.value = _displayedHealth;
-
             yield return null;
         }
+
     }
 }

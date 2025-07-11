@@ -8,11 +8,8 @@ public class TextHealthDisplayer : HealthDisplayer
 
     protected override IEnumerator UpdateHealthDisplay()
     {
-        while (enabled)
-        {
-            _textMeshPro.text = $"{Health.Current}/{Health.Max}";
+        _textMeshPro.text = $"{Health.Current}/{Health.Max}";
 
-            yield return null;
-        }
+        yield return null;
     }
 }
