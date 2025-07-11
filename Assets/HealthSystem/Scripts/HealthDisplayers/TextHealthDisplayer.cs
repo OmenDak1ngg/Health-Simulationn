@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -5,8 +6,13 @@ public class TextHealthDisplayer : HealthDisplayer
 {
     [SerializeField] private TextMeshProUGUI _textMeshPro;
 
-    private void Update()
+    protected override IEnumerator UpdateHealthDisplay()
     {
-        _textMeshPro.text = $"{_health.GetCurrentHealth()}/{_health.GetMaxHealth()}";
+        while (enabled)
+        {
+            _textMeshPro.text = $"{Health.Current}/{Health.Max}";
+
+            yield return null;
+        }
     }
 }

@@ -1,6 +1,14 @@
+using System.Collections;
 using UnityEngine;
 
-public class HealthDisplayer : MonoBehaviour
+abstract public class HealthDisplayer : MonoBehaviour
 {
-    [SerializeField] protected Health _health;
+    [SerializeField] protected Health Health;
+
+    protected virtual void Start()
+    {
+        StartCoroutine(UpdateHealthDisplay());
+    }
+
+    protected abstract IEnumerator UpdateHealthDisplay();
 }

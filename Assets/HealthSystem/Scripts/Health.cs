@@ -2,39 +2,35 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private float _maxHealth;
+    [SerializeField] public float Max { get; private set; }
 
-    private float _currentHealth;
+    public float Current { get; private set; }
 
     private void Awake()
     {
-        _currentHealth = _maxHealth;
+        Current = Max;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float amount)
     {
-        if(_currentHealth < damage)
+        if (amount < 0)
+            return;
+
+        if (Current < amount)
         
-            _currentHealth = 0;
+            Current = 0;
         else
-            _currentHealth -= damage;
+            Current -= amount;
     }
 
-    public void TakeHeal(float heal)
+    public void TakeHeal(float amount)
     {
-        if (_currentHealth + heal > _maxHealth)
-            _currentHealth = _maxHealth;
+        if (amount < 0)
+            return;
+
+        if (Current + amount > Max)
+            Current = Max;
         else
-            _currentHealth += heal;
-    }
-
-    public float GetCurrentHealth()
-    {
-        return _currentHealth;
-    }
-
-    public float GetMaxHealth()
-    {
-        return _maxHealth;
+            Current += amount;
     }
 }

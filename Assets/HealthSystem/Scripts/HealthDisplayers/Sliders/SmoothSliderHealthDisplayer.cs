@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SmoothSliderHealthDisplayer : SliderHealthDisplayer
@@ -8,19 +9,20 @@ public class SmoothSliderHealthDisplayer : SliderHealthDisplayer
 
     protected override void Start()
     {
+        _displayedHealth = Health.Current;
+        Slider.value = _displayedHealth;
+
         base.Start();
-        _displayedHealth = _health.GetCurrentHealth();
-        _slider.value = _displayedHealth;
     }
 
-    protected override void Update()
+    protected override IEnumerator UpdateHealthDisplay()
     {
-        base.Update();
-    }
+        while (enabled)
+        {
+            _displayedHealth = Mathf.MoveTowards(_displayedHealth, Health.Current, _healthDelta * Time.deltaTime);
+            Slider.value = _displayedHealth;
 
-    protected override void ChangeValue()
-    {
-        _displayedHealth = Mathf.MoveTowards(_displayedHealth, _health.GetCurrentHealth(), _healthDelta * Time.deltaTime);
-        _slider.value = _displayedHealth;
+            yield return null;
+        }
     }
 }

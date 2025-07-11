@@ -6,6 +6,6 @@ public class DamageButton : HealthButton
 
     protected override void OnClicked()
     {
-        _health.TakeDamage(_damage);
+        Health.TakeDamage(_damage);
     }
 }

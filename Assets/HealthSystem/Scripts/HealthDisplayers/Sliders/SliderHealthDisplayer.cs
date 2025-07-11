@@ -1,29 +1,32 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Slider))]
 public class SliderHealthDisplayer : HealthDisplayer
 {
-    protected Slider _slider;
+    protected Slider Slider;
 
     protected virtual void Awake()
     {
-        _slider = GetComponent<Slider>();
+        Slider = GetComponent<Slider>();
     }
 
-    protected virtual void Start()
+    protected override void Start()
     {
-        _slider.maxValue = _health.GetMaxHealth();
-        _slider.minValue = 0;
+        Slider.maxValue = Health.Max;
+        Slider.minValue = 0;
+        
+        base.Start();
     }
 
-    protected virtual void Update()
+    protected override IEnumerator UpdateHealthDisplay()
     {
-        ChangeValue();
-    }
+        while (enabled)
+        {
+            Slider.value = Health.Max;
 
-    protected virtual void ChangeValue()
-    {
-        _slider.value = _health.GetCurrentHealth();
+            yield return null;
+        }
     }
 }

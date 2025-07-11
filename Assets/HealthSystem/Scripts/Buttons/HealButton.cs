@@ -6,6 +6,6 @@ public class HealButton : HealthButton
 
     protected override void OnClicked()
     {
-        _health.TakeHeal(_heal);
+        Health.TakeHeal(_heal);
     }
 }
